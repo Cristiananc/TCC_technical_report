@@ -1,0 +1,23 @@
+### Structure of simulations
+
+* Creating trajectories;
+* Repeat simulations;
+* Phylodynamic reconstruction;
+* Summaries of the reconstruction;
+* Calculate performance metrics.
+
+
+Functions folder
+
+R folder
+The trajectories are input as a parameter;
+01-simulation-sample-genealogies (genealogies is the output)
+02-simulation-effepop-reconstruction (reconstruction is the output)
+(if we want we can plot the random simulations but they are not part of the 
+default pipline of the simulations)
+03-simulation-perfomance-metrics (we export the performance metrics)
+(if we want we can produce the summaries in order to plot the effective 
+population size)
+
+With this organization we can generate the simulations for different trajectories
+that  we input in the functions.
