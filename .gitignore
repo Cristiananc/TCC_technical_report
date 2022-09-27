@@ -5,3 +5,6 @@
 
 # Avoid adding html
 *.html
+
+#Avoid adding the data folder
+data
