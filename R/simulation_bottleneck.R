@@ -23,8 +23,9 @@ trajectory_bottleneck <- function(t){
 
 #Here we simulate 500 different genealogies with 20 taxa
 n_taxa <- 5
+stimes <- sort(runif(n_taxa, date_min, date_max))
 outpath_01 <- paste0(path, "genealogies_bottleneck_traj1_", n_taxa, "taxa.rdata")
-sim_sampling_genealogies(n_sim, date_min, date_max, n_taxa, trajectory_bottleneck, outpath_01) 
+sim_sampling_genealogies(n_sim, stimes, date_min, date_max, n_taxa, trajectory_bottleneck, outpath_01) 
   
 #The next step is the phylodynamic reconstruction of the effective population size for the
 #trees with 20 taxa for each precision prior analysed
@@ -33,3 +34,5 @@ sim_reconstructing_effepop(outpath_01, outpath_02)
 
 #THIRD STEP ##########
 #Now we calculate the performance metrics
+R <- stimes[length(stimes)]
+sim_calculating_performance_metrics(trajectory_bottleneck, R, max_time, n_sim, outpath_02)
