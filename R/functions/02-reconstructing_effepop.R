@@ -1,4 +1,5 @@
 library(phylodyn)
+library(ggplot2)
 require(rlist)
 
 effepop_reconstruction_gamma <- function(genealogies){
@@ -30,12 +31,4 @@ effepop_reconstruction_pc_prior <- function(genealogies){
            pc_prior = TRUE)))
   
   return(reconstructions_pc_prior)
-}
-
-plot_random_simulation <- function(random_number, rec, traj, prior_name, col){
-  plot_BNPR(rec[random_number], traj = traj,
-            main= paste("BNPR: Simulation", random_number, "for", prior_name) , 
-            yscale = 1,
-            col = col, 
-            heatmap_labels_side = "left")
 }

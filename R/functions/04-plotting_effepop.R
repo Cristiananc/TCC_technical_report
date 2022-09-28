@@ -1,5 +1,13 @@
 library(ggplot2)
 
+plot_random_reconstruction <- function(random_number, rec, traj, prior_name, col){
+  plot_BNPR(rec[random_number], traj = traj,
+            main= paste("BNPR: Simulation", random_number, "for", prior_name) , 
+            yscale = 1,
+            col = col, 
+            heatmap_labels_side = "left")
+}
+
 summaries_genealogy_reconstruction <- function(n.sim, reconstructions, prior.name, ntaxa) {
   summaries_df <- do.call(rbind, lapply(1:n.sim, function(i){
     data.frame(reconstructions[[i]]$summary, replicate = i,

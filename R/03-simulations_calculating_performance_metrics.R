@@ -1,4 +1,5 @@
 require(rlist)
+library(dplyr)
 source("R/functions/03-calculating_performance_metrics.R")
 
 sim_calculating_performance_metrics <- function(traj, R, max_time, n_sim, inpath){
@@ -6,18 +7,25 @@ sim_calculating_performance_metrics <- function(traj, R, max_time, n_sim, inpath
   rec_matching_gamma <- list.load(paste0(inpath, "reconstructions_matching_gamma.rdata"))
   rec_pc_prior <- list.load(paste0(inpath, "reconstructions_pc_prior.rdata"))
   
-  errors_gamma <- percent_error(traj, rec_gamma, R, max_time)
-  errors_matching_gamma <- percent_error(traj, rec_matching_gamma, R, max_time)
-  errors_pc_prior <- percent_error(traj, rec_pc_prior, R, max_time)
+  errors_gamma <- unlist(lapply(rec_gamma, percent_error, traj = traj, R = R, max_time = max_time))
+  errors_matching_gamma <- unlist(lapply(rec_matching_gamma, percent_error, 
+                                         traj = traj, R = R, max_time = max_time))
+  errors_pc_prior <- unlist(lapply(rec_pc_prior, percent_error, 
+                                         traj = traj, R = R, max_time = max_time))
   
-  bias_gamma <- percent_bias(traj, rec_gamma, R, max_time)
-  bias_matching_gamma <- percent_bias(traj, rec_matching_gamma, R, max_time)
-  bias_pc_prior <- percent_bias(traj, rec_pc_prior, R, max_time)
+  bias_gamma <- unlist(lapply(rec_gamma, percent_bias, 
+                              traj = traj, R = R, max_time = max_time))
+  bias_matching_gamma <- unlist(lapply(rec_matching_gamma, percent_bias, 
+                                       traj = traj, R = R, max_time = max_time))
+  bias_pc_prior <- unlist(lapply(rec_pc_prior, percent_bias, 
+                                 traj = traj, R = R, max_time = max_time))
   
-  BCI_size_gamma <- BCI_size(traj,rec_gamma, R, max_time)
-  BCI_size_matching_gamma <- BCI_size(traj, rec_matching_gamma, R, max_time)
-  BCI_size_pc_prior <- BCI_size(traj, rec_pc_prior, R, max_time) 
-  
+  BCI_size_gamma <- unlist(lapply(rec_gamma, BCI_size, traj = traj, R = R, max_time = max_time))
+  BCI_size_matching_gamma <- unlist(lapply(rec_matching_gamma, BCI_size, 
+                                           traj = traj, R = R, max_time = max_time))
+  BCI_size_pc_prior <- unlist(lapply(rec_pc_prior, BCI_size, 
+                                           traj = traj, R = R, max_time = max_time))
+
   metrics_df <- data.frame(
     bias = c(bias_gamma, bias_matching_gamma, bias_pc_prior),
     widths = c(BCI_size_gamma, BCI_size_matching_gamma, BCI_size_pc_prior),
@@ -25,8 +33,10 @@ sim_calculating_performance_metrics <- function(traj, R, max_time, n_sim, inpath
     prior = rep(c("Gamma Flat", "Matching Gamma", "PC prior"), each = n_sim)
   )
   
-  #Creating a table with the Q1, Q2, Q3 and mean values
+  #Calculating the Q1, Q2, Q3 quantiles and mean values for performance metrics 
+  #of all prior distributions
+  table_stats <- do.call("rbind", lapply(metrics_df[metrics_df$prior == "PC prior", 1:3], quantile)
+  print(table_stats)
   
-  #Saving the dataframes
   list.save(metrics_df, paste0(inpath, "metrics_df.rdata"))
 }
