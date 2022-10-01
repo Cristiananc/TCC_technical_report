@@ -30,7 +30,7 @@ sim_sampling_genealogies(n_sim, stimes, date_min, date_max, n_taxa, trajectory_b
 #trees with 20 taxa for each precision prior analysed
 outpath_02 <- paste0(path, "bottleneck_traj1_", n_taxa, "taxa_")
 a <- sample(1:n_sim, 1)
-sim_reconstructing_effepop(outpath_01, outpath_02, trajectory_bottleneck)
+sim_reconstructing_effepop(outpath_01, outpath_02, trajectory_bottleneck, n_taxa, n_sim)
 
 #THIRD STEP ##########
 #Now we calculate the performance metrics
