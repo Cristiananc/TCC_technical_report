@@ -14,7 +14,7 @@ sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, n
   file_name_pc_prior <- paste0(outpath, "reconstructions_pc_prior")
   ext <- ".rdata"
   
-  if(!file.exists(file_name_gamma)){
+  if(!file.exists(paste0(file_name_gamma, ext))){
     system.time(effepop_gamma <- effepop_reconstruction_gamma(genealogies))
     sgamma <- summaries_genealogy_reconstruction(nsim, effepop_gamma, "Gamma", ntaxa)
     
@@ -22,8 +22,12 @@ sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, n
     list.save(effepop_gamma, paste0(file_name_gamma, ext))
     message(paste("Reconstruction successfully saved in"), file_name_gamma)
   }
+  else{
+    message("Reconstruction for Gamma file already exist.")
+    effepop_gamma <-list.load(paste0(outpath, "reconstructions_gamma.rdata"))
+  }
   
-  else if(!file.exists(file_name_matching_gamma)){
+  if(!file.exists(paste0(file_name_matching_gamma, ext))){
     system.time(effepop_matching_gamma <- effepop_reconstruction_matching_gamma(genealogies))
     smgamma <- summaries_genealogy_reconstruction(nsim, effepop_matching_gamma, "Matching Gamma", ntaxa)
     
@@ -31,8 +35,12 @@ sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, n
     list.save(effepop_matching_gamma, paste0(file_name_matching_gamma, ext))
     message(paste("Reconstruction successfully saved in"), file_name_matching_gamma)
   }
+  else{
+    message("Reconstruction for Matching Gamma file already exist.")
+    effepop_matching_gamma <-list.load(paste0(outpath, "reconstructions_matching_gamma.rdata"))
+  }
   
-  else if(!file.exists(file_name_pc_prior)){
+  if(!file.exists(paste0(file_name_pc_prior, ext))){
     system.time(effepop_pc_prior <- effepop_reconstruction_pc_prior(genealogies))
     spcprior <- summaries_genealogy_reconstruction(nsim, effepop_pc_prior, "PC Prior", ntaxa)
     
@@ -41,18 +49,22 @@ sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, n
     message(paste("Reconstruction successfully saved in"), file_name_pc_prior)
   }
   else{
-    message("All files already exist.")
-    
-    effepop_gamma <-list.load(paste0(outpath, "reconstructions_gamma.rdata"))
-    effepop_matching_gamma <-list.load(paste0(outpath, "reconstructions_matching_gamma.rdata"))
+    message("Reconstruction for PC Prior file already exists.")
     effepop_pc_prior <- list.load(paste0(outpath, "reconstructions_pc_prior.rdata"))
   }
   
-  #Ploting one random reconstruction for each prior distribution
-  random_number <- sample(1:nsim, 1)
-  par(mfrow=c(3,1))
-  #plot_random_reconstruction(random_number, effepop_gamma, traj, "Gamma", "coral")
-  #plot_random_reconstruction(random_number, effepop_matching_gamma, traj, "Matching Gamma", "limegreen")
-  #plot_random_reconstruction(random_number, effepop_pc_prior, traj, "PC Prior", "turquoise")
+  message("Second step done!")
   
+  #Ploting one random reconstruction for each prior distribution
+  message("Plotting one random reconstruction for each precision prior distribution.")
+  rn <- sample(1:nsim, 1)
+  par(mfrow=c(3,1))
+  plot_random_reconstruction(effepop_gamma[[rn]], traj, "Gamma", "coral", rn)
+  plot_random_reconstruction(effepop_matching_gamma[[rn]], 
+                             traj, "Matching Gamma", "limegreen", rn)
+  plot_random_reconstruction(effepop_pc_prior[[rn]], traj, 
+                             "PC Prior", "turquoise", rn)
+  
+  dev.copy2pdf(file = paste0(outpath, "plot_reconstruction.pdf"), out.type = "pdf")
+  par(mfrow = c(1, 1))
 }
