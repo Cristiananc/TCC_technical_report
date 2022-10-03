@@ -3,7 +3,7 @@ require(rlist)
 source("R/functions/02-reconstructing_effepop.R")
 source("R/functions/02.1-plotting_effepop.R")
 
-sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, nsim){
+sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, nsim, outpath_fig){
   
   #Loading file saved as rdata format
   genealogies <- list.load(genealogies_file)
@@ -65,6 +65,6 @@ sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, n
   plot_random_reconstruction(effepop_pc_prior[[rn]], traj, 
                              "PC Prior", "turquoise", rn)
   
-  dev.copy2pdf(file = paste0(outpath, "plot_reconstruction.pdf"), out.type = "pdf")
+  dev.copy2pdf(file = paste0(outpath_fig, "plot_reconstruction.pdf"), out.type = "pdf")
   par(mfrow = c(1, 1))
 }
