@@ -3,17 +3,25 @@ library(dplyr)
 source("R/functions/03-calculating_performance_metrics.R")
 
 sim_calculating_performance_metrics <- function(traj, R, max_time, n_sim, inpath){
+  
+  message("Performing the 3º step of the simulation!")
+  
   if(!file.exists(paste0(inpath, "metrics_df.rdata"))){
+    
+    message("Loading reconstructions.")
     rec_gamma <- list.load(paste0(inpath, "reconstructions_gamma.rdata"))
     rec_matching_gamma <- list.load(paste0(inpath, "reconstructions_matching_gamma.rdata"))
     rec_pc_prior <- list.load(paste0(inpath, "reconstructions_pc_prior.rdata"))
     
+    message("Calculating performance metrics:")
+    message("Calculating percent error.")
     errors_gamma <- unlist(lapply(rec_gamma, percent_error, traj = traj, R = R, max_time = max_time))
     errors_matching_gamma <- unlist(lapply(rec_matching_gamma, percent_error, 
                                            traj = traj, R = R, max_time = max_time))
     errors_pc_prior <- unlist(lapply(rec_pc_prior, percent_error, 
                                      traj = traj, R = R, max_time = max_time))
     
+    message("Calculating percent bias.")
     bias_gamma <- unlist(lapply(rec_gamma, percent_bias, 
                                 traj = traj, R = R, max_time = max_time))
     bias_matching_gamma <- unlist(lapply(rec_matching_gamma, percent_bias, 
@@ -21,6 +29,7 @@ sim_calculating_performance_metrics <- function(traj, R, max_time, n_sim, inpath
     bias_pc_prior <- unlist(lapply(rec_pc_prior, percent_bias, 
                                    traj = traj, R = R, max_time = max_time))
     
+    message("Calculating BCI posterior size.")
     BCI_size_gamma <- unlist(lapply(rec_gamma, BCI_size, traj = traj, R = R, max_time = max_time))
     BCI_size_matching_gamma <- unlist(lapply(rec_matching_gamma, BCI_size, 
                                              traj = traj, R = R, max_time = max_time))
