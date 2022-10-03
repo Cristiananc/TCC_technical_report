@@ -14,7 +14,9 @@ date_max <- 31
 #outpath = "./data/processed/"
 
 #The real trajectory of the phylogenies simulated
-
+trajectory_exponential <- function(t, scale = 10, rate = 0.1){
+  return(scale * exp(- t* rate))
+}
 
 #Here we simulate 500 different genealogies with 20 taxa
 n_taxa <- 5

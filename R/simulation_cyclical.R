@@ -14,7 +14,10 @@ date_max <- 31
 #outpath = "./data/processed/"
 
 #The real trajectory of the phylogenies simulated
+trajectory_cyclic <- cyclic_traj
 
+plot(trajectory_cyclic(seq(0, 31)), type = 'l', ylab = "Effective population size", 
+     xlab = "Time", xlim = c(31, 0))
 
 #Here we simulate 500 different genealogies with 20 taxa
 n_taxa <- 5

@@ -14,7 +14,9 @@ date_max <- 31
 #outpath = "./data/processed/"
 
 #The real trajectory of the phylogenies simulated
-
+trajectory_constant <- function(x){
+  return(rep(10, length(x)))
+}
 
 #Here we simulate 500 different genealogies with 20 taxa
 n_taxa <- 5
