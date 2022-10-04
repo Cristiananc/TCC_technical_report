@@ -1,30 +1,27 @@
-library(phylodyn)
-require(rlist)
-source("R/01-simulation_sampling_genealogies.R")
-source("R/02-simulations_reconstructing_effepop.R")
-#source("R")
-
+source("R/simulations_step_by_step.R")
 set.seed(29)
 
-# Number of simulations
-n_sim <- 5
+#Setting input variables
+path <- "./data/simulations/constant/"
+path_fig <- "./figs/simulations/constant/"
+n_sim <- 500
 date_min <- 0
 date_max <- 31
-#inpath = "./data/simulations/"
-#outpath = "./data/processed/"
 
 #The real trajectory of the phylogenies simulated
+name_traj <- "constant_traj1"
 trajectory_constant <- function(x){
   return(rep(10, length(x)))
 }
 
-#Here we simulate 500 different genealogies with 20 taxa
-n_taxa <- 5
-#file_name <- paste0(inpath, "")
+# SIMULATION WITH 20 TAXA ####
+n_taxa <- 20
 
-sim_sampling_genealogies(n_sim, date_min, date_max, n_taxa, trajectory_bottleneck) 
+#Performing simulations:
+simulation_step_by_step(path, n_sim, date_min, date_max, trajectory_constant, 
+                        n_taxa, name_traj, path_fig)
 
-path <- "./data/simulations/"
-
-#The next step is the phylodynamic reconstruction of the effective population size for the
-#trees with 20 taxa for each precision prior analysed
+# SIMULATION WITH 200 TAXA ####
+n_taxa <- 200
+simulation_step_by_step(path, n_sim, date_min, date_max, trajectory_constant, 
+                        n_taxa, name_traj, path_fig)
