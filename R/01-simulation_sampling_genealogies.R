@@ -4,13 +4,14 @@ source("R/functions/01-sampling_genealogies.R")
 
 sim_sampling_genealogies <- function(n_sim, stimes, date_min, date_max, n_taxa, trajectory, file_saving, lower_bound = 1){
   
+  message("Performing the 1º step of the simulation")
+  
   #Checks if the file already exists before performing the code
   if(!file.exists(file_saving)){
     plot(seq(date_min, date_max), trajectory(seq(date_min, date_max)), type = 'l') 
     
     n_sampled <- rep(1, n_taxa)
 
-    message("Performing the 1º step of the simulation")
     genealogies <- sampling_genealogies(n_sim = n_sim, stimes = stimes, 
                                         n_sampled = n_sampled, trajectory = trajectory,
                                         lower_bound = lower_bound)
@@ -21,6 +22,6 @@ sim_sampling_genealogies <- function(n_sim, stimes, date_min, date_max, n_taxa, 
     message(paste("Genealogies sucessfully saved in", file_saving))
   }
   else{
-    message("File already exists.")
+    message("Genealogy file already exists.")
   }
 }
