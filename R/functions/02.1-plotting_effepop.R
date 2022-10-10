@@ -1,7 +1,7 @@
 library(ggplot2)
 
-plot_random_reconstruction <- function(random_number, rec, traj, prior_name, col){
-  plot_BNPR(rec[random_number], traj = traj,
+plot_random_reconstruction <- function(rec, traj, prior_name, col, random_number){
+  plot_BNPR(rec, traj = traj,
             main= paste("BNPR: Simulation", random_number, "for", prior_name) , 
             yscale = 1,
             col = col, 
