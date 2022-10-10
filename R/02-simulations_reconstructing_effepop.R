@@ -65,6 +65,7 @@ sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, n
   plot_random_reconstruction(effepop_pc_prior[[rn]], traj, 
                              "PC Prior", "turquoise", rn)
   
-  dev.copy2pdf(file = paste0(outpath_fig, "plot_reconstruction.pdf"), out.type = "pdf")
+  dev.copy2pdf(file = paste0(outpath_fig, "plot_reconstruction.pdf"), 
+               width = 10, height = 14, out.type = "pdf")
   par(mfrow = c(1, 1))
 }
