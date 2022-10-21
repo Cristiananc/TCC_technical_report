@@ -46,4 +46,5 @@ plot_log_effepop_20_and_200_taxa <- function(summary_path, path_fig, traj){
   plot_log_effepop(all_estimates, traj)
   dev.copy2pdf(file = paste0(path_fig, "plot_log_effepop_size.pdf"), 
              width = 12, height = 8, out.type = "pdf")
+  dev.off()
 }
