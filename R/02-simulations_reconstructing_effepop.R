@@ -68,4 +68,5 @@ sim_reconstructing_effepop <- function(genealogies_file, outpath, traj, ntaxa, n
   dev.copy2pdf(file = paste0(outpath_fig, "plot_reconstruction.pdf"), 
                width = 10, height = 14, out.type = "pdf")
   par(mfrow = c(1, 1))
+  dev.off()
 }
