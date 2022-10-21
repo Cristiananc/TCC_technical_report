@@ -28,18 +28,5 @@ simulation_step_by_step(path, n_sim, date_min, date_max, trajectory_cyclic,
                         n_taxa, name_traj, path_fig)
 
 #Plotting log of effective population size for both 20 and 200 taxa
-#"cyclical_traj1_4taxa_reconstructions_pc_prior_summary"
-sgamma20 <- list.load()
-sgamma200 <- list.load()
-
-s_mgamma20 <- list.load()
-s_mgamma200 <- list.load()
-
-spcprior20 <- list.load()
-spcprior200 <- list.load()
-
-all_estimates <- rbind(sgamma20, sgamma200, s_mgamma20, s_mgamma200, spcprior20, spcprior200)
-all_estimates$ntaxa <- as.factor(all_estimates$ntaxa)
-all_estimates$replicate <- as.factor(all_estimates$replicate)
-
-plot_log_effepop(all_estimates, trajectory_cyclic)
+summary_path <- paste0(path, name_traj)
+plot_log_effepop_20_and_200_taxa (summary_path, path_fig, trajectory_cyclic)
