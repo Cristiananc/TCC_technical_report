@@ -9,14 +9,14 @@ simulation_step_by_step <- function(path, n_sim, date_min, date_max, traj,
   
   #FIRST STEP #####
   #Here we simulate 500 different genealogies with 20 taxa
-  outpath_01 <- paste0(path, "genealogies_", name_traj, "_", n_taxa, "taxa.rdata")
+  outpath_01 <- paste0(path, "genealogies_", name_traj, "_", n_sim, "n_sim_", n_taxa, "taxa.rdata")
   sim_sampling_genealogies(n_sim, stimes, date_min, date_max, n_taxa, traj, outpath_01) 
   
   #SECOND STEP ###
   #The next step is the phylodynamic reconstruction of the effective population size for the
   #trees with 20 taxa for each precision prior analysed
-  outpath_02 <- paste0(path, name_traj, "_", n_taxa, "taxa_")
-  outpath_fig <- paste0(path_fig, name_traj, "_", n_taxa, "taxa_")
+  outpath_02 <- paste0(path, name_traj, "_", n_sim, "n_sim_", n_taxa, "taxa_")
+  outpath_fig <- paste0(path_fig, name_traj, "_", n_sim, "n_sim_", n_taxa, "taxa_")
   a <- sample(1:n_sim, 1)
   sim_reconstructing_effepop(outpath_01, outpath_02, traj, n_taxa, n_sim, outpath_fig)
   
