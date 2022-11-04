@@ -29,3 +29,5 @@ simulation_step_by_step(path, n_sim, date_min, date_max, trajectory_exponential,
 #Plotting log of effective population size for both 20 and 200 taxa
 summary_path <- paste0(path, name_traj)
 plot_log_effepop_20_and_200_taxa (summary_path, path_fig, trajectory_exponential)
+
+plot_pointwise_bias_for_all(summary_path, path_fig, trajectory_exponential, date_max)
