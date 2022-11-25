@@ -37,9 +37,9 @@ sim_calculating_performance_metrics <- function(traj, R, max_time, n_sim, inpath
                                        traj = traj, R = R, max_time = max_time))
     
     metrics_df <- data.frame(
-      bias = c(bias_gamma, bias_matching_gamma, bias_pc_prior),
+      percent_bias = c(bias_gamma, bias_matching_gamma, bias_pc_prior),
       widths = c(BCI_size_gamma, BCI_size_matching_gamma, BCI_size_pc_prior),
-      errors = c(errors_gamma, errors_matching_gamma, errors_pc_prior),
+      percent_error = c(errors_gamma, errors_matching_gamma, errors_pc_prior),
       prior = rep(c("Gamma Flat", "Matching Gamma", "PC prior"), each = n_sim)
     )
     
