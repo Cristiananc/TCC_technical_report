@@ -1,3 +1,6 @@
+#Installing phylodyn
+devtools::install_github("maxbiostat/phylodyn", ref = "new_pc_prior")
+
 #Analysing the different priors for real data on flu
 library(phylodyn)
 library(ggplot2)
@@ -13,8 +16,8 @@ zero_dates <- list(USACanada = 2012.301, Europe = 2011.044, NorthChina = 2011.28
                    SouthAmerica = 2011.518, SoutheastAsia = 2011.995, Oceania = 2010.964)
 
 years <- list(USACanada = 12, Europe = 11, NorthChina = 10,
-             JapanKorea = 12, India = 10, SouthChina = 11,
-             SouthAmerica = 11, SoutheastAsia = 11, Oceania = 10)
+              JapanKorea = 12, India = 10, SouthChina = 11,
+              SouthAmerica = 11, SoutheastAsia = 11, Oceania = 10)
 
 start <- 8/12
 
