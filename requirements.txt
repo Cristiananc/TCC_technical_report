@@ -1,0 +1,4 @@
+#Installing phylodyn
+devtools::install_github("maxbiostat/phylodyn", ref = "new_pc_prior")
+install.packages("INLA", repos=c(getOption("repos"), INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
+
