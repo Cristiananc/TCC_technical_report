@@ -1,5 +1,6 @@
 #Installing phylodyn
 devtools::install_github("maxbiostat/phylodyn", ref = "new_pc_prior")
+install.packages("INLA", repos=c(getOption("repos"), INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
 
 #Analysing the different priors for real data on flu
 library(phylodyn)
@@ -90,4 +91,4 @@ ggplot(data = peffpop) +
   scale_x_reverse() +
   geom_ribbon(data = peffpop, aes(x = Time, ymin= effpop025, ymax= effpop975,
                                   fill = Prior), alpha = 0.1) +
-  facet_wrap(~region_name, scale= "free_y")
+  facet_wrap(~region_name)# , scale= "free_y")
